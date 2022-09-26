@@ -1,6 +1,7 @@
 @import './assets/styles/_variables.scss';
 
 .main {
+  padding: 50px 0;
   flex: 1;
 }
 
@@ -20,4 +21,8 @@
   position: absolute;
   width: 1px;
   white-space: nowrap; /* 3 */
+}
+
+.separator {
+  flex: 1;
 }
