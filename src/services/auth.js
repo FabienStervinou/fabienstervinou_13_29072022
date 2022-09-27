@@ -7,7 +7,8 @@ class ServerAuth {
 
   getToken (email, password) {
     return axios.post(`${this.baseURL}user/login`, {
-      email, password
+      email, 
+      password
     },
     {
       headers: {
@@ -29,6 +30,24 @@ class ServerAuth {
       }
     );
   }
+
+  putProfile (firstName, lastName, token) {
+    return axios.put(
+      `${this.baseURL}user/profile`, 
+      {
+        firstName,
+        lastName
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+  }
+
+
 }
 
 export default ServerAuth;
