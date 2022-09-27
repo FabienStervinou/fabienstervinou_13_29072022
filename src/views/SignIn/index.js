@@ -2,16 +2,24 @@ import './style.scss';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { doLogin } from '../../store/authActions';
+import { doLogin } from '../../features/auth/auth.actions';
+import { useNavigate } from 'react-router-dom';
 
-function SignIn() {
+function SignIn () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(doLogin(email, password));
+    try {
+      await dispatch(doLogin(email, password));
+      navigate('/user');
+    } catch (error) {
+      console.error(error);
+    }
+
   };
 
   return (
@@ -32,9 +40,6 @@ function SignIn() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {/* PLACEHOLDER DUE TO STATIC SITE */}
-          {/* <a href="./user.html" className="sign-in-button">Sign In</a> */}
-          {/* SHOULD BE THE BUTTON BELOW */}
           <button className="sign-in-button">Sign In</button>
         </form>
       </section>
