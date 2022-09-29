@@ -24,6 +24,7 @@ function User () {
 
     try {
       await dispatch(doChangeProfile(firstname, lastname, token));
+      toggleEditForm();
     } catch (error) {
       console.error(error);
     }
