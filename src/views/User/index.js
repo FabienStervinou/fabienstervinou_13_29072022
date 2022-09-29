@@ -22,6 +22,8 @@ function User () {
     const firstname = e.target[0].value;
     const lastname = e.target[1].value;
 
+    if (firstname.length <= 2 || lastname.length <= 2 ) { return; }
+
     try {
       await dispatch(doChangeProfile(firstname, lastname, token));
       toggleEditForm();
@@ -37,21 +39,18 @@ function User () {
           !toggleEdit 
             ? <>
               <h1>Welcome back<br />{user.firstName} {user.lastName} !</h1>
+              <button className="edit-button" onClick={() => toggleEditForm()}>Edit name</button> 
             </> 
             : <>
-              <form onSubmit={submitNewProfil}>
+              <form className='edit' onSubmit={submitNewProfil}>
                 <h1>Welcome back</h1>
-                <input name='firstName' type="text" placeholder={user.firstName}/>
-                <input name='lastName' type="text" placeholder={user.lastName}/>
+                <input className='edit-input' name='firstName' type="text" placeholder={user.firstName}/>
+                <input className='edit-input' name='lastName' type="text" placeholder={user.lastName}/><br />
                 <button className='edit-button'>Save</button>
+                <button className="edit-button" onClick={() => toggleEditForm()}>Cancel</button> 
               </form>
             </>
         }
-
-        <button className="edit-button" onClick={() => toggleEditForm()}>
-          {!toggleEdit ? 'Edit Name' : 'Cancel'}
-        </button> 
-
       </div>
       <h2 className="sr-only">Accounts</h2>
       {
