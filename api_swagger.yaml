@@ -153,6 +153,8 @@ paths:
           description: Bad request - Invalid userId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '412' :
+          description: Precondition Failed – One or more conditions in the request header fields evaluated to false
         '500':
           description: Internal Server Error
 
@@ -193,6 +195,8 @@ paths:
           description: Bad request - Invalid userId or accountId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '412' :
+          description: Precondition Failed – one or more conditions in the request header fields evaluated to false
         '500':
           description: Internal Server Error
 
@@ -232,6 +236,8 @@ paths:
           description: Bad request - Invalid userId, accountId or transactionId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '412' :
+          description: Precondition Failed – one or more conditions in the request header fields evaluated to false
         '500':
           description: Internal Server Error
     patch:
@@ -271,6 +277,8 @@ paths:
           description: Unauthorized - Authorization token is porbably not valid
         '409':
           description: Conflict - You try to upload a file older than the existing one in the server
+        '412' :
+          description: Precondition Failed – one or more conditions in the request header fields evaluated to false
         '500':
           description: Internal Server Error
 
