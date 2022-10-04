@@ -82,6 +82,8 @@ paths:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
         '500':
           description: Internal Server Error
     put:
@@ -112,10 +114,12 @@ paths:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
         '500':
           description: Internal Server Error
 
-  /account/:
+  /accounts:
     get:
       security:
       - Bearer: []
@@ -147,10 +151,12 @@ paths:
               $ref: '#/definitions/AccountResponse'
         '400':
           description: Bad request - Invalid userId
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
         '500':
           description: Internal Server Error
 
-  /account/transactions/:
+  /accounts/transactions:
     get:
       security:
       - Bearer: []
@@ -169,8 +175,11 @@ paths:
           description: UUID of user
           required: true
           schema:
-            type: integer
             $ref: '#/definitions/AccountResponse'
+        - in : query
+          type : string
+          name: dateQuery
+          description: The date typed like - YYYY-MM
       produces:
         - application/json
       responses:
@@ -182,10 +191,12 @@ paths:
               $ref: '#/definitions/Transaction'
         '400':
           description: Bad request - Invalid userId or accountId
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
         '500':
           description: Internal Server Error
 
-  /account/transaction/:
+  /accounts/transactions/{id}:
     get:
       security:
       - Bearer: []
@@ -204,8 +215,12 @@ paths:
           description: Transaction payload
           required: true
           schema:
-            type: integer
-            $ref: '#/definitions/TransactionBody'
+            $ref: '#/definitions/AccountId'
+        - in : path
+          name: id
+          type: integer
+          description: Id of transaction query
+          required: true
       produces:
         - application/json
       responses:
@@ -215,10 +230,10 @@ paths:
             $ref: '#/definitions/Transaction'
         '400':
           description: Bad request - Invalid userId, accountId or transactionId
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
         '500':
           description: Internal Server Error
-
-  /account/transaction/update/category:
     patch:
       security:
       - Bearer: []
@@ -237,8 +252,12 @@ paths:
           description: Transaction payload
           required: true
           schema:
-            type: integer
-            $ref: '#/definitions/TransactionCategory'
+            $ref: '#/definitions/TransactionPatch'
+        - in : path
+          name: id
+          type: integer
+          description: Id of transaction query
+          required: true
       produces:
         - application/json
       responses:
@@ -247,40 +266,11 @@ paths:
           schema:
             $ref: '#/definitions/Transaction'
         '400':
-          description: Bad request - Invalid userId, accountId, transactionId or missing category fields
-        '500':
-          description: Internal Server Error
-
-  /account/transaction/update/note:
-    patch:
-      security:
-      - Bearer: []
-      tags:
-        - Account Module
-      summary: Account transaction API
-      description: API for modify a specific transaction note
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: body
-          name: Body
-          description: Transaction payload
-          required: true
-          schema:
-            type: integer
-            $ref: '#/definitions/TransactionNote'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Modification apply successully
-          schema:
-            $ref: '#/definitions/Transaction'
-        '400':
-          description: Bad request - Invalid userId, accountId, transactionId or missing note fields
+          description: Bad request - Invalid accountId, transactionId or missing category/note fields
+        '401':
+          description: Unauthorized - Authorization token is porbably not valid
+        '409':
+          description: Conflict - You try to upload a file older than the existing one in the server
         '500':
           description: Internal Server Error
 
@@ -365,6 +355,12 @@ definitions:
       lastConnexion:
         type: string
         format: date-time
+  AccountId:
+    type: object
+    properties:
+      accountId:
+        type: integer
+        format: uuid
   AccountResponse:
     type: object
     properties:
@@ -386,20 +382,22 @@ definitions:
       transactionId:
         type: integer
         format: uuid
-  TransactionCategory:
+  TransactionPatch:
     type: object
     properties:
-      userId:
-        type: integer
-        format: uuid
       accountId:
         type: integer
         format: uuid
       transactionId:
         type: integer
         format: uuid
-      category:
-        type: string
+      body:
+        type: object
+        properties:
+          category:
+            type: string
+          note:
+            type: string
   TransactionNote:
     type: object
     properties:
