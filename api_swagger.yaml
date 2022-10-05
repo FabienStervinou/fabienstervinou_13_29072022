@@ -153,6 +153,8 @@ paths:
           description: Bad request - Invalid userId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '403':
+          description: Forbidden – Client authenticated but does not have permission to access the requested resource
         '412' :
           description: Precondition Failed – One or more conditions in the request header fields evaluated to false
         '500':
@@ -195,6 +197,8 @@ paths:
           description: Bad request - Invalid userId or accountId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '403':
+          description: Forbidden – Client authenticated but does not have permission to access the requested resource
         '412' :
           description: Precondition Failed – one or more conditions in the request header fields evaluated to false
         '500':
@@ -236,6 +240,8 @@ paths:
           description: Bad request - Invalid userId, accountId or transactionId
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '403':
+          description: Forbidden – Client authenticated but does not have permission to access the requested resource
         '412' :
           description: Precondition Failed – one or more conditions in the request header fields evaluated to false
         '500':
@@ -275,6 +281,8 @@ paths:
           description: Bad request - Invalid accountId, transactionId or missing category/note fields
         '401':
           description: Unauthorized - Authorization token is porbably not valid
+        '403':
+          description: Forbidden – Client authenticated but does not have permission to access the requested resource
         '409':
           description: Conflict - You try to upload a file older than the existing one in the server
         '412' :
