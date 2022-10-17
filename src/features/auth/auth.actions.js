@@ -48,7 +48,6 @@ export const doLogin = (email, password) => async (dispatch) => {
 export const doLogout = () => async (dispatch) => {
   dispatch({ type: AUTH_LOGIN_LOADING });
   try {
-    window.localStorage.setItem('authenticated', false);
     return dispatch({ type: AUTH_LOGOUT });
   } catch (error) {
     return dispatch(doLoginFailed(error));

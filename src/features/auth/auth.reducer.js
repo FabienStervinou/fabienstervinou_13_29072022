@@ -1,5 +1,5 @@
 export const initialAuthState = {
-  isAuthenticated: JSON.parse(window.localStorage.getItem('authenticated')),
+  isAuthenticated: false,
   token: null,
   error: null,
   fetching: false,

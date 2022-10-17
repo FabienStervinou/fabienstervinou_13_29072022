@@ -31,10 +31,10 @@ function Header () {
         isAuthenticated 
           ? 
           <>
-            <div className="main-nav-item">
+            <NavLink to="user" className="main-nav-item">
               <span className="avatar"><SVGUser /></span>
               <span className="name">{ user.firstName }</span>
-            </div>
+            </NavLink>
             <button className="main-nav-item" onClick={handleClick}>
               <span className='signout'><SVGSignout /></span>
               Sign Out
