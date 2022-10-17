@@ -19,7 +19,6 @@ function SignIn () {
     } catch (error) {
       console.error(error);
     }
-
   };
 
   return (

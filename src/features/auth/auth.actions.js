@@ -22,7 +22,6 @@ export const doLoginFailed = (error) => ({
 
 export const doLogin = (email, password) => async (dispatch) => {
   dispatch({ type: AUTH_LOGIN_LOADING });
-
   try {
     const response = await backend.getToken(email, password);
     dispatch({ 
@@ -57,7 +56,6 @@ export const doLogout = () => async (dispatch) => {
 };
 
 export const doChangeProfile = (firstName, lastName, token) => async (dispatch) => {
-
   try {
     const responseProfilChange = await backend.putProfile(firstName, lastName, token);
     dispatch({ 

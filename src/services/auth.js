@@ -46,8 +46,6 @@ class ServerAuth {
       }
     );
   }
-
-
 }
 
 export default ServerAuth;
