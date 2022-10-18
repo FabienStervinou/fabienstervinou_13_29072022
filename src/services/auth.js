@@ -5,46 +5,61 @@ class ServerAuth {
     this.baseURL = 'http://localhost:3001/api/v1/';
   }
 
-  getToken (email, password) {
-    return axios.post(`${this.baseURL}user/login`, {
-      email, 
-      password
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-    );
-  }
-
-  getProfile (token) {
-    return axios.post(
-      `${this.baseURL}user/profile`, 
-      { token },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
-  }
-
-  putProfile (firstName, lastName, token) {
-    return axios.put(
-      `${this.baseURL}user/profile`, 
-      {
-        firstName,
-        lastName
+  async getToken (email, password) {
+    try {
+      const response = await axios.post(`${this.baseURL}user/login`, {
+        email, 
+        password
       },
       {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          'Content-Type': 'application/json'
         }
       }
-    );
+      );
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getProfile (token) {
+    try {
+      const response = await axios.post(
+        `${this.baseURL}user/profile`, 
+        { token },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async putProfile (firstName, lastName, token) {
+    try {
+      const response = await axios.put(
+        `${this.baseURL}user/profile`, 
+        {
+          firstName,
+          lastName
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
